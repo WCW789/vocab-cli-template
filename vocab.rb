@@ -33,7 +33,7 @@ class Vocab
     end
   end
 
-  private
+  # private
 
   def add_word
     print "What is the word? "
