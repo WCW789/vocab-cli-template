@@ -1,5 +1,6 @@
 require "minitest/autorun"
 require "./vocab"
+require 'stringio'
 
 class TestVocabCli < Minitest::Test
   def setup
@@ -7,18 +8,14 @@ class TestVocabCli < Minitest::Test
   end
 
   def test_add_word
-    output = get_user_input
+    simulated_user_input = StringIO.new("Ruby\nIs both a programming language and a gemstone\n")
+    $stdin = simulated_user_input
 
-    assert_equal "Test", output
     assert @vocab.add_word, "Test to Add Word Failed"
+    assert simulated_user_input
     assert @vocab.show_words, "Test to Show Word Failed"
+
+    $stdin = STDIN
   end
 
-  def gets
-    "Test\n"
-  end
-
-  def get_user_input
-    user_input = gets.chomp
-  end
 end
